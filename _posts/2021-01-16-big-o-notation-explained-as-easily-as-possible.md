@@ -10,7 +10,7 @@ usemathjax: true
 
 Data Structures and Algorithms is about solving problems efficiently. A bad programmer solves their problems inefficiently and a really bad programmer doesn't even know why their solution is inefficient. So, the question is, *How do you rank an algorithm's efficiency?*
 
-> If you want to learn the math involved with the Big O, read  [Analysing Algorithms: Worst Case Running Time](../2021-01-22/analysing-algorithms-worst-case-running-time).
+> If you want to learn the math involved with the Big O, read  [Analysing Algorithms: Worst Case Running Time](../analysing-algorithms-worst-case-running-time).
 
 The simple answer to that question is the **Big O Notation**. How does that work? Let me explain!
 

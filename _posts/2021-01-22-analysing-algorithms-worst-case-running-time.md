@@ -8,18 +8,18 @@ usemathjax: true
 ---
 {% include math.html %}
 
-In my [last article](../2021-01-16/big-o-notation-explained-as-easily-as-possible), I tried to give a beginner friendly explanation of the ***Big O Notation*** but we skipped out on a lot of stuff. So I am going to talk about **analyzing algorithms** today, specifically the ***worst-case running time of algorithms***, which indeed is the ***Big O***, while still keeping this article beginner friendly only. As we progress in the series, I would gradually start talking on higher levels and will try to discuss about most important factors of these concepts.
+In my [last article](../big-o-notation-explained-as-easily-as-possible), I tried to give a beginner friendly explanation of the ***Big O Notation*** but we skipped out on a lot of stuff. So I am going to talk about **analyzing algorithms** today, specifically the ***worst-case running time of algorithms***, which indeed is the ***Big O***, while still keeping this article beginner friendly only. As we progress in the series, I would gradually start talking on higher levels and will try to discuss about most important factors of these concepts.
 
 One thing to keep in mind is that Big O is just a notation and can be used to denote a variety of things but we will stick to the worst case running time only in this article.
 
 
 ### Worst-Case Running Time is tricky...
 
-As you already know, we are focusing on the worst-case running times but even talking about worst-case running time can be tricky if we are trying to be precise. We have to identify the *worst case input* in detail, which can be counter-intuitive and then work through a lot of different cases. Also, if you followed the [last article](../2021-01-16/big-o-notation-explained-as-easily-as-possible), we were counting the single operations or steps of different algorithms, which might get annoying as the algorithm becomes more and more complex.
+As you already know, we are focusing on the worst-case running times but even talking about worst-case running time can be tricky if we are trying to be precise. We have to identify the *worst case input* in detail, which can be counter-intuitive and then work through a lot of different cases. Also, if you followed the [last article](../big-o-notation-explained-as-easily-as-possible), we were counting the single operations or steps of different algorithms, which might get annoying as the algorithm becomes more and more complex.
 
 
 
-As we have discussed earlier too, that we drop the constants for the Big O notation (again, read the [last article](../2021-01-16/big-o-notation-explained-as-easily-as-possible)) — so, if an algorithm has a running time of ***2n² + 23*** operations and another algorithm has a running time of ***2n² + 27*** operations (both for an input of size n), we wouldn't really care about the 23 or 27 — we would say that essentially they have the same running time.
+As we have discussed earlier too, that we drop the constants for the Big O notation (again, read the [last article](../big-o-notation-explained-as-easily-as-possible)) — so, if an algorithm has a running time of ***2n² + 23*** operations and another algorithm has a running time of ***2n² + 27*** operations (both for an input of size n), we wouldn't really care about the 23 or 27 — we would say that essentially they have the same running time.
 
 
 
