@@ -28,7 +28,8 @@ github_username:  luciferreeves
 
 # Build settings
 remote_theme: chesterhow/tale
-
+markdown: kramdown
+mathjax: true
 permalink:  /:year-:month-:day/:title
 paginate:   5
 plugins:
