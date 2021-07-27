@@ -31,7 +31,7 @@ The fact that the functions are both O(n) doesn't change the fact that they don'
 
 Mathematically speaking, let us assume two functions `f(x)` and `g(x)` be positive for x sufficiently large. We say that `f(x)` and `g(x)` grow at the same rate as x tends to infinity, if
 
-$$ \displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = M  \neq 0  \text{ (M is a finite non-zero number)}. \ $$
+$$ \displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = M  \neq 0  \text{ (M is a finite non-zero number)}. $$
 
 Now, let `f(x) = x²` and `g(x) = x²/2` then while `limit(x ⟶ ∞)f(x)/g(x)` is equal to 2. Therefore, x² and x²/2 have the same growth rate, and hence we can say **O(x²)** is equal to **O(x²/2)**.
 
