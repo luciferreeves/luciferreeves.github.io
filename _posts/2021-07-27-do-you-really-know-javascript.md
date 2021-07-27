@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Most Beautiful Question of Computer Science (+Math)"
+title:  "Do You Really Know JavaScript?"
 date:   2021-07-27 00:00:00 +0530
 author: Priyansh
 tags: programming javascript computer-science
