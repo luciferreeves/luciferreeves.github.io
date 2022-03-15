@@ -9,8 +9,10 @@ router.use("/admin", admin);
 
 // Create the routes
 router.get("/", (req, res) => {
-  // Send index.html from public folder
   res.render("index.html");
+});
+router.get("/about", (req, res) => {
+  res.render("about.html");
 });
 
 // Export the routes
