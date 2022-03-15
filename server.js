@@ -8,22 +8,35 @@ const routes = require("./routes");
 
 // Create the server
 const app = express();
-
+app.use(function (req, res, next) {
+  if (
+    req.get("X-Forwarded-Proto") === "http" &&
+    !["localhost", "127.0.0.1"].includes(
+      req.get("X-Forwarded-Host")?.split(":")[0] ?? ""
+    )
+  ) {
+    res.redirect("https://" + req.headers.host + req.url);
+  } else {
+    next();
+  }
+});
 // Set the port
 const port = process.env.PORT || 3000;
 // Set the middleware
 app.use(cors({ origin: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use("/static", express.static(__dirname + "/static"));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 app.use(routes);
 
-app.set('views', __dirname + '/public/views');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.set("views", __dirname + "/public/views");
+app.engine("html", require("ejs").renderFile);
+app.set("view engine", "html");
 
 // Start the server
 app.listen(port, () => {
