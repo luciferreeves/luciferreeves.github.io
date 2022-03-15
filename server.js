@@ -11,7 +11,7 @@ const app = express();
 app.use(function (req, res, next) {
   if (
     req.get("X-Forwarded-Proto") === "http" &&
-    !["localhost", "127.0.0.1"].includes(
+    !["localhost", "127.0.0.1", "109.105.216.138"].includes(
       req.get("X-Forwarded-Host")?.split(":")[0] ?? ""
     )
   ) {
