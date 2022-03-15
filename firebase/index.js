@@ -5,7 +5,7 @@ const credentials = {
   type: process.env.type,
   project_id: process.env.project_id,
   private_key_id: process.env.private_key_id,
-  private_key: String(process.env.private_key).replace(/\\n/g, "\n"),
+  private_key: String(process.env.private_key).replace(/\\n/g, "\n").replace(/\"/g, ""),
   client_email: process.env.client_email,
   client_id: process.env.client_id,
   auth_uri: process.env.auth_uri,
