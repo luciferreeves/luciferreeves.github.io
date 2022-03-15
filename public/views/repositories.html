@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>That Computer Scientist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="static/assets/css/docs.css" rel="stylesheet">
+    <link rel="shortcut icon" href="static/images/favicon.png">
+</head>
+
+<body>
+    <!-- Navbar  -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse"></button>
+                <a class="brand" href="./">That Computer Scientist</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="../">Home</a></li>
+                        <li><a href="../about">About</a></li>
+                        <li class="active"><a href="../repos">Repositories</a></li>
+                        <li><a href="https://github.com/luciferreeves" target="_blank">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Unit -->
+    <div class="container margin-top-375" style="margin-top: 3.75rem;">
+        <h2>Repositories</h2>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Language</th>
+                <th>Stars</th>
+                <th>Forks</th>
+                <th>License</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="repos"></tbody>
+    </table>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <script src="static/assets/js/jquery.js"></script>
+    <script src="static/assets/js/bootstrap-386.js"></script>
+    <script src="static/assets/js/bootstrap-transition.js"></script>
+    <script src="static/assets/js/bootstrap-collapse.js"></script>
+    <script>
+        const repos = document.getElementById('repos');
+        // Get the repositories from 'api/repos'
+        $.getJSON('api/repos', function(data) {
+            console.log(data);
+            $.each(data.repositories, function(key, val) {
+                const tableRow = document.createElement('tr');
+                const name = document.createElement('td');
+                const description = document.createElement('td');
+                const language = document.createElement('td');
+                const stars = document.createElement('td');
+                const forks = document.createElement('td');
+                const license = document.createElement('td');
+                const viewButton = document.createElement('td');
+                const viewLink = document.createElement('a');
+
+                name.innerHTML = val.name;
+                description.innerHTML = val.description;
+                language.innerHTML = val.language;
+                stars.innerHTML = val.stars;
+                forks.innerHTML = val.forks;
+                license.innerHTML = val.license;
+                viewLink.href = val.url;
+                viewLink.innerHTML = 'Browse';
+                viewButton.appendChild(viewLink);
+
+                tableRow.appendChild(name);
+                tableRow.appendChild(description);
+                tableRow.appendChild(language);
+                tableRow.appendChild(stars);
+                tableRow.appendChild(forks);
+                tableRow.appendChild(license);
+                tableRow.appendChild(viewButton);
+
+                repos.appendChild(tableRow);
+            });
+        });
+    </script>
+</body>
+
+</html>
