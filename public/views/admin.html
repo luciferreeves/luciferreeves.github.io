@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>That Computer Scientist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/favicon.png">
+    <style>
+        button {
+            outline: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar  -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse"></button>
+                <a class="brand" href="./index.html">That Computer Scientist</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="https://github.com/luciferreeves" target="_blank">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Unit -->
+    <div class="container margin-top-375" style="margin-top: 3.75rem;">
+        <header class="page-header">
+            <h1>Admin Page</h1>
+        </header>
+        <div class="jumbotron subhead" id="overview">
+            <p class="lead">Where do yousa think yousa goen? disa per mesa only.
+                <a href="../">Gos home</a>.
+            </p>
+        </div>
+        <div class="login-form">
+            <form class="form-horizontal" onsubmit="event.preventDefault();">
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                        <input type="text" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword">Password</label>
+                    <div class="controls">
+                        <input type="password" id="inputPassword" placeholder="Password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" id="signInButton" class="btn">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <script src="/static/assets/js/jquery.js"></script>
+    <!-- <script src="static/assets/js/bootstrap-386.js"></script> -->
+    <script src="/static/assets/js/bootstrap-transition.js"></script>
+    <script src="/static/assets/js/bootstrap-collapse.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js" defer></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const firebaseConfig = {
+                apiKey: "AIzaSyBCmKUnEmm8hLR9ZcFWPYbYiplbP6yUzfU",
+                authDomain: "thatcomputerscientist-e9cf2.firebaseapp.com",
+                projectId: "thatcomputerscientist-e9cf2",
+                storageBucket: "thatcomputerscientist-e9cf2.appspot.com",
+                messagingSenderId: "178402875544",
+                appId: "1:178402875544:web:8c9d8880d3ef495a5658ed",
+                measurementId: "G-JECWWZG5J6"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const signInButton = document.getElementById("signInButton");
+            signInButton.addEventListener("click", () => {
+                const email = document.getElementById("inputEmail").value;
+                const password = document.getElementById("inputPassword").value;
+                firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+                    window.location.assign("/admin/dashboard");
+                });
+            });
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    window.location.assign("/admin/dashboard");
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
