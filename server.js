@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
 // Set the port
 const port = process.env.PORT || 3000;
 // Set the middleware
-app.use(cors({ origin: true }));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
