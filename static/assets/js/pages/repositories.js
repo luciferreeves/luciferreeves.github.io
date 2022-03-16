@@ -20,7 +20,6 @@ $.getJSON(`api/repos?page=${page}`, function (data) {
     document.getElementById("olderTop").addEventListener("click", prevPage);
     document.getElementById("olderBottom").addEventListener("click", prevPage);
   }
-  console.log(data);
   if (data.countNext == 0) {
     document.getElementById("newerTop").classList.add("disabled");
     document.getElementById("newerBottom").classList.add("disabled");
