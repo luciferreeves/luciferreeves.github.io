@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="static/assets/css/custom.css" rel="stylesheet">
+    <link href="/static/assets/css/custom.css" rel="stylesheet">
     <link rel="shortcut icon" href="/static/images/favicon.png">
     <style>
         button {
@@ -37,8 +37,31 @@
             </div>
         </div>
     </div>
+    <div id="login-info" class="container margin-top-375" style="margin-top: 3.75rem;">
+        <p id="checkingLogin">CHECKING LOGIN INFO...</p>
+    </div>
+    <script>
+        const checkingLogin = document.getElementById("checkingLogin");
+
+        // Animate checkingLogin text ellipsis
+        const animateEllipsis = () => {
+            const ellipsis = "....";
+            const ellipsisLength = ellipsis.length;
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i === ellipsisLength) {
+                    i = 0;
+                }
+                checkingLogin.innerHTML = 'CHECKING LOGIN INFO' + ellipsis.substring(0, i);
+                i++;
+            }, 500);
+            return interval;
+        };
+
+        animateEllipsis();
+    </script>
     <!-- Hero Unit -->
-    <div class="container margin-top-375" style="margin-top: 3.75rem;">
+    <div id="login-page" class="container margin-top-375 hidden" style="margin-top: 3.75rem;">
         <header class="page-header">
             <h1>Admin Page</h1>
         </header>

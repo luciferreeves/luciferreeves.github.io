@@ -5,12 +5,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/assets/css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/favicon.png">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>Dashboard</h1>
-    <button id="logout">Logout</button>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse"></button>
+                <a class="brand" href="../">That Computer Scientist</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="../">Home</a></li>
+                        <li><a href="../about">About</a></li>
+                        <li><a href="../repos">Repositories</a></li>
+                        <li class="active"><a href="./">Administration</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-375" style="margin-top: 3.75rem;">
+        <div class="container">
+            <div class="row">
+                <div class="span3 bs-docs-sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav affix-top">
+                        <li class="active"><a href="../admin/dashboard">All Posts</a></li>
+                        <li><a href="#">Add Post</a></li>
+                        <li><a href="#">Manage Comments</a></li>
+                        <li><a href="#">Manage Users</a></li>
+                        <li><a id="logout">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="span9">
+                    <header class="page-header">
+                        <h1>All Posts</h1>
+                    </header>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
     <script>

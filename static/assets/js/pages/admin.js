@@ -1,3 +1,6 @@
+const loginInfo = document.getElementById("login-info");
+const loginForm = document.getElementById("login-page");
+
 window.addEventListener("DOMContentLoaded", () => {
   const firebaseConfig = {
     apiKey: "AIzaSyBCmKUnEmm8hLR9ZcFWPYbYiplbP6yUzfU",
@@ -23,6 +26,9 @@ window.addEventListener("DOMContentLoaded", () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       window.location.assign("/admin/dashboard");
+    } else {
+      loginForm.classList.remove("hidden");
+      loginInfo.classList.add("hidden");
     }
   });
 });
