@@ -32,11 +32,11 @@ app.use(
 );
 app.use("/static", express.static(__dirname + "/static"));
 app.use(express.static(__dirname + "/public"));
-app.use(routes);
-
-app.set("views", __dirname + "/public/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
+app.set("views", __dirname + "/public/views");
+app.use(routes);
+
 
 // Start the server
 app.listen(port, () => {
