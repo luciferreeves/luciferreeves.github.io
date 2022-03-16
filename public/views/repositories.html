@@ -10,7 +10,14 @@
     <link href="static/assets/css/bootstrap.css" rel="stylesheet">
     <link href="static/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="static/assets/css/docs.css" rel="stylesheet">
+    <link href="static/assets/css/custom.css" rel="stylesheet">
+    <link href="static/assets/css/custom-icons.css" rel="stylesheet">
     <link rel="shortcut icon" href="static/images/favicon.png">
+    <style>
+        .a-hvr:hover {
+            background-color: #ebe527;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,21 +42,33 @@
     <!-- Hero Unit -->
     <div class="container margin-top-375" style="margin-top: 3.75rem;">
         <h2>Repositories</h2>
+        <div class="container">
+            <div class="row">
+                <ul class="pager">
+                    <li id="olderTop" class="previous">
+                        <a>&larr; Older</a>
+                    </li>
+                    <li id="newerTop" class="next">
+                        <a>Newer &rarr;</a>
+                    </li>
+                </ul>
+                <div class="span3 bs-docs-sidebar">
+                    <div class="nav nav-list bs-docs-sidenav affix-top" id="userData"></div>
+                </div>
+                <div class="span9">
+                    <div id="repos"></div>
+                </div>
+                <ul class="pager">
+                    <li id="olderBottom" class="previous">
+                        <a>&larr; Older</a>
+                    </li>
+                    <li id="newerBottom" class="next">
+                        <a>Newer &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Language</th>
-                <th>Stars</th>
-                <th>Forks</th>
-                <th>License</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="repos"></tbody>
-    </table>
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
     <script src="static/assets/js/jquery.js"></script>
     <script src="static/assets/js/bootstrap-386.js"></script>
@@ -57,40 +76,151 @@
     <script src="static/assets/js/bootstrap-collapse.js"></script>
     <script>
         const repos = document.getElementById('repos');
+        const page = window.location.search.split('page=')[1] || 1;
+
+        function nextPage() {
+            window.location.href = `?page=${parseInt(page) + 1}`;
+        }
+
+        function prevPage() {
+            window.location.href = `?page=${parseInt(page) - 1}`;
+        }
+
         // Get the repositories from 'api/repos'
-        $.getJSON('api/repos', function(data) {
-            console.log(data);
-            $.each(data.repositories, function(key, val) {
-                const tableRow = document.createElement('tr');
-                const name = document.createElement('td');
-                const description = document.createElement('td');
-                const language = document.createElement('td');
-                const stars = document.createElement('td');
-                const forks = document.createElement('td');
-                const license = document.createElement('td');
-                const viewButton = document.createElement('td');
-                const viewLink = document.createElement('a');
+        $.getJSON(`api/repos?page=${page}`, function (data) {
+            if (page == 1) {
+                document.getElementById('olderTop').classList.add('disabled');
+                document.getElementById('olderBottom').classList.add('disabled');
+            } else {
+                document.getElementById('olderTop').classList.remove('disabled');
+                document.getElementById('olderBottom').classList.remove('disabled');
+                document.getElementById('olderTop').addEventListener('click', prevPage);
+                document.getElementById('olderBottom').addEventListener('click', prevPage);
+            }
+            console.log(data)
+            if (data.countNext == 0) {
+                document.getElementById('newerTop').classList.add('disabled');
+                document.getElementById('newerBottom').classList.add('disabled');
+            } else {
+                document.getElementById('newerTop').classList.remove('disabled');
+                document.getElementById('newerBottom').classList.remove('disabled');
+                document.getElementById('newerTop').addEventListener('click', nextPage);
+                document.getElementById('newerBottom').addEventListener('click', nextPage);
+            }
+            const repositories = data.repositories;
+            repositories.forEach(repo => {
+                const leadParagraphCotainer = document.createElement('p');
+                leadParagraphCotainer.className = 'lead';
+                const repoName = repo.name;
+                const repoLink = repo.html_url;
+                const repoDescription = repo.description;
+                const repoLanguage = repo.language || 'No language';
+                const repoStars = repo.stars;
+                const repoForks = repo.forks;
+                const license = repo.license;
 
-                name.innerHTML = val.name;
-                description.innerHTML = val.description;
-                language.innerHTML = val.language;
-                stars.innerHTML = val.stars;
-                forks.innerHTML = val.forks;
-                license.innerHTML = val.license;
-                viewLink.href = val.url;
-                viewLink.innerHTML = 'Browse';
-                viewButton.appendChild(viewLink);
-
-                tableRow.appendChild(name);
-                tableRow.appendChild(description);
-                tableRow.appendChild(language);
-                tableRow.appendChild(stars);
-                tableRow.appendChild(forks);
-                tableRow.appendChild(license);
-                tableRow.appendChild(viewButton);
-
-                repos.appendChild(tableRow);
+                const nameContainer = document.createElement('h3');
+                nameContainer.innerHTML = repoName;
+                const descriptionContainer = document.createElement('p');
+                descriptionContainer.innerHTML = repoDescription;
+                const languageAndLicenseContainer = document.createElement('div');
+                const languageBadgeContainer = document.createElement('span');
+                languageBadgeContainer.className = 'badge badge-warning';
+                languageBadgeContainer.innerHTML = repoLanguage;
+                const licenseBadgeContainer = document.createElement('span');
+                licenseBadgeContainer.className = 'badge badge-info';
+                licenseBadgeContainer.style.marginLeft = '10px';
+                licenseBadgeContainer.innerHTML = license;
+                languageAndLicenseContainer.appendChild(languageBadgeContainer);
+                languageAndLicenseContainer.appendChild(licenseBadgeContainer);
+                languageAndLicenseContainer.style.marginBottom = '10px';
+                const starsAndForksContainer = document.createElement('div');
+                const starsContainer = document.createElement('span');
+                const starIcon = document.createElement('i');
+                starIcon.classList.add('tcs-icon', 'star', 'is-small');
+                starsContainer.appendChild(starIcon);
+                starsContainer.innerHTML += ' ' + repoStars + ' Stars';
+                const forksContainer = document.createElement('span');
+                forksContainer.innerHTML += ' ' + repoForks + ' Forks';
+                starsAndForksContainer.appendChild(starsContainer);
+                starsAndForksContainer.appendChild(forksContainer);
+                starsAndForksContainer.style.marginBottom = '10px';
+                const repoLinkContainer = document.createElement('p');
+                const repoLinkAnchor = document.createElement('a');
+                repoLinkAnchor.href = repoLink;
+                repoLinkAnchor.innerHTML = 'View on Github';
+                repoLinkContainer.appendChild(repoLinkAnchor);
+                leadParagraphCotainer.appendChild(nameContainer);
+                leadParagraphCotainer.appendChild(descriptionContainer);
+                leadParagraphCotainer.appendChild(languageAndLicenseContainer);
+                leadParagraphCotainer.appendChild(starsAndForksContainer);
+                leadParagraphCotainer.appendChild(repoLinkContainer);
+                repos.appendChild(leadParagraphCotainer);
             });
+        });
+        const userData = document.getElementById('userData');
+        // Get the user data from 'api/user'
+        $.getJSON('api/user', function (data) {
+            const userAvatar = document.createElement('img');
+            userAvatar.src = data.user.avatar;
+            userAvatar.className = 'img-polaroid';
+            userAvatar.style.width = '100%';
+            userData.appendChild(userAvatar);
+            const strong = document.createElement('strong');
+            const userName = document.createElement('h2');
+            userName.innerHTML = data.user.name;
+            userName.style.color = '#000';
+            strong.appendChild(userName);
+            userData.appendChild(strong);
+            const userBio = document.createElement('p');
+            userBio.innerHTML = data.user.bio;
+            userBio.style.color = '#000';
+            userData.appendChild(userBio);
+            const followerContainer = document.createElement('p');
+            followerContainer.style.color = '#000';
+            const followerIcon = document.createElement('i');
+            followerIcon.classList.add('tcs-icon', 'trophy', 'is-small');
+            followerContainer.appendChild(followerIcon);
+            const followerText = document.createElement('span');
+            followerText.innerHTML = '&emsp;' + data.user.followers + ' Followers';
+            followerContainer.appendChild(followerText);
+            userData.appendChild(followerContainer);
+            const twParagraph = document.createElement('p');
+            twParagraph.style.color = '#000';
+            const twitterIcon = document.createElement('i');
+            twitterIcon.classList.add('tcs-icon', 'twitter', 'is-small');
+            twParagraph.appendChild(twitterIcon);
+            const twitterText = document.createElement('span');
+            const ts2 = document.createElement('span');
+            ts2.innerHTML = '&emsp;'
+            twitterText.appendChild(ts2);
+            const twitterContainer = document.createElement('a');
+            twitterContainer.style.color = '#db4437';
+            twitterContainer.classList.add('a-hvr');
+            twitterContainer.href = "https://twitter.com/" + data.user.twitter;
+            twitterContainer.target = "_blank";
+            twitterContainer.innerHTML = data.user.twitter;
+            twitterText.appendChild(twitterContainer);
+            twParagraph.appendChild(twitterText);
+            userData.appendChild(twParagraph);
+            const ghParagraph = document.createElement('p');
+            ghParagraph.style.color = '#000';
+            const githubIcon = document.createElement('i');
+            githubIcon.classList.add('tcs-icon', 'github', 'is-small');
+            ghParagraph.appendChild(githubIcon);
+            const githubText = document.createElement('span');
+            const ts3 = document.createElement('span');
+            ts3.innerHTML = '&emsp;'
+            githubText.appendChild(ts3);
+            const githubContainer = document.createElement('a');
+            githubContainer.style.color = '#db4437';
+            githubContainer.classList.add('a-hvr');
+            githubContainer.href = data.user.url;
+            githubContainer.target = "_blank";
+            githubContainer.innerHTML = data.user.login;
+            githubText.appendChild(githubContainer);
+            ghParagraph.appendChild(githubText);
+            userData.appendChild(ghParagraph);
         });
     </script>
 </body>
