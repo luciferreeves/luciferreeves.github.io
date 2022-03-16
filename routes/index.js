@@ -4,9 +4,11 @@ const router = express.Router();
 // Import the routes
 const admin = require("./admin");
 const api = require("./api");
+const posts = require("./posts");
 // Set the routes
 router.use("/admin", admin);
 router.use("/api", api);
+router.use("/api/blog", posts);
 
 // Create the routes
 router.get("/", (req, res) => {
