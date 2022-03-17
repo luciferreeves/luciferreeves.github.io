@@ -45,8 +45,8 @@
                 <div class="span9">
                     <header class="page-header">
                         <h1>All Posts</h1>
-                        <div id="posts"></div>
                     </header>
+                    <div id="posts"></div>
                 </div>
             </div>
         </div>
@@ -58,6 +58,56 @@
     <script src="/static/assets/js/bootstrap-collapse.js"></script>
     <script src="/static/assets/js/pages/config.js"></script>
     <script src="/static/assets/js/pages/authCheck.js"></script>
+    <script>
+        $(document).ready(() => {
+            // hit api/blog/posts to get all the posts
+            $.ajax({
+                url: '/api/blog/posts',
+                type: 'GET',
+                success: (data) => {
+                    const posts = document.getElementById('posts');
+                    data.forEach(post => {
+                        const leadParagraphCotainer = document.createElement('div');
+                        leadParagraphCotainer.className = 'lead';
+                        const title = document.createElement('h3');
+                        title.innerHTML = post.title;
+                        const content = document.createElement('p');
+                        content.innerHTML = post.content.substring(0, 100) + '...';
+                        const date = document.createElement('p');
+                        date.innerHTML = post.publishDate;
+                        const tags = document.createElement('p');
+                        post.tags.forEach(tag => {
+                            const tagSpan = document.createElement('span');
+                            tagSpan.className = 'label label-info';
+                            tagSpan.innerHTML = tag;
+                            tagSpan.style.marginRight = '5px';
+                            tags.appendChild(tagSpan);
+                        });
+                        const editButton = document.createElement('a');
+                        editButton.className = 'btn btn-primary';
+                        editButton.innerHTML = 'Edit Post';
+                        editButton.style.marginRight = '15px';
+                        const deleteButton = document.createElement('a');
+                        deleteButton.className = 'btn btn-danger';
+                        deleteButton.innerHTML = 'Delete Post';
+                        const editButtonContainer = document.createElement('div');
+                        editButtonContainer.className = 'btn-group';
+                        editButtonContainer.appendChild(editButton);
+                        editButtonContainer.appendChild(deleteButton);
+                        leadParagraphCotainer.appendChild(title);
+                        leadParagraphCotainer.appendChild(content);
+                        leadParagraphCotainer.appendChild(date);
+                        leadParagraphCotainer.appendChild(tags);
+                        leadParagraphCotainer.appendChild(editButtonContainer);
+                        posts.appendChild(leadParagraphCotainer);
+                    })
+                }, 
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>

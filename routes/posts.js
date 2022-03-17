@@ -8,7 +8,6 @@ router.get("/posts", (req, res) => {
   let query = store.collection("posts");
 
   query
-    .limit(1)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((documentSnapshot) => {
@@ -23,18 +22,24 @@ router.get("/posts", (req, res) => {
 router.post("/new", (req, res) => {
   const { title, content, tags, publishDate } = req.body;
   const store = firebase.firestore();
+  const id = store.collection("posts").doc().id;
   const post = {
+    id,
     title,
     content,
     tags: String(tags).split(",").length > 0 ? String(tags).split(",") : [],
     publishDate,
   };
   let query = store.collection("posts");
-  query.add(post).then(() => {
-    res.json({ success: true });
-  }).catch((err) => {
-    res.json({ success: false, err });
-  });
+  query
+    .doc(id)
+    .set(post)
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      res.json({ success: false, err });
+    });
 });
 
 module.exports = router;
