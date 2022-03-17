@@ -5,6 +5,10 @@ router.get("/dashboard", function (req, res) {
   res.render("dashboard.html");
 });
 
+router.get("/dashboard/new", function (req, res) {
+  res.render("createPost.html");
+})
+
 router.get("/", (req, res) => {
   // Send admin.html from public folder
   res.render("admin.html");

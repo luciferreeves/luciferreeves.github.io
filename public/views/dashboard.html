@@ -9,7 +9,7 @@
     <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="/static/assets/css/custom.css" rel="stylesheet">
     <link rel="shortcut icon" href="/static/images/favicon.png">
-    <title>Document</title>
+    <title>Dashboard - All Posts</title>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                 <div class="span3 bs-docs-sidebar">
                     <ul class="nav nav-list bs-docs-sidenav affix-top">
                         <li class="active"><a href="../admin/dashboard">All Posts</a></li>
-                        <li><a href="#">Add Post</a></li>
+                        <li><a href="/admin/dashboard/new">Add Post</a></li>
                         <li><a href="#">Manage Comments</a></li>
                         <li><a href="#">Manage Users</a></li>
                         <li><a id="logout">Logout</a></li>
@@ -45,6 +45,7 @@
                 <div class="span9">
                     <header class="page-header">
                         <h1>All Posts</h1>
+                        <div id="posts"></div>
                     </header>
                 </div>
             </div>
@@ -52,28 +53,11 @@
     </div>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyBCmKUnEmm8hLR9ZcFWPYbYiplbP6yUzfU",
-            authDomain: "thatcomputerscientist-e9cf2.firebaseapp.com",
-            projectId: "thatcomputerscientist-e9cf2",
-            storageBucket: "thatcomputerscientist-e9cf2.appspot.com",
-            messagingSenderId: "178402875544",
-            appId: "1:178402875544:web:8c9d8880d3ef495a5658ed",
-            measurementId: "G-JECWWZG5J6"
-        };
-        firebase.initializeApp(firebaseConfig);
-        firebase.auth().onAuthStateChanged((user) => {
-            if (!user) {
-                window.location.assign("/admin/");
-            }
-        });
-        document.getElementById("logout").addEventListener("click", () => {
-            firebase.auth().signOut().then(() => {
-                window.location.assign("/admin/");
-            });
-        });
-    </script>
+    <script src="/static/assets/js/jquery.js"></script>
+    <script src="/static/assets/js/bootstrap-transition.js"></script>
+    <script src="/static/assets/js/bootstrap-collapse.js"></script>
+    <script src="/static/assets/js/pages/config.js"></script>
+    <script src="/static/assets/js/pages/authCheck.js"></script>
 </body>
 
 </html>
