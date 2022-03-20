@@ -1,4 +1,4 @@
-# Personal Website
+# Personal Website ([thatcomputerscientist.com](https://thatcomputerscientist.com/))
 
 ![Lines of code](https://img.shields.io/tokei/lines/github/luciferreeves/luciferreeves.github.io?label=lines%20of%20code) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/luciferreeves/luciferreeves.github.io/Fly%20Deploy) ![GitHub](https://img.shields.io/github/license/luciferreeves/luciferreeves.github.io) ![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fthatcomputerscientist.com) ![Docker Deployment](https://img.shields.io/badge/deployed%20using-docker-informational)
 
