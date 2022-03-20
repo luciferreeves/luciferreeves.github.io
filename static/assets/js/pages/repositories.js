@@ -61,6 +61,81 @@ $.getJSON("api/user", function (data) {
   githubText.appendChild(githubContainer);
   ghParagraph.appendChild(githubText);
   userData.appendChild(ghParagraph);
+  const contributions = data.contributions;
+  const canvas = document.createElement("canvas");
+  canvas.id = "contributionsChart";
+  const ctx = canvas.getContext("2d");
+  const color = "#000083";
+  // Generate Dates of past 53 weeks
+  const dates = [];
+  const today = new Date();
+  const startDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 53 * 7
+  );
+  for (let i = 0; i < 53; i++) {
+    const date = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate() + i * 7
+    );
+    const datePlusSevenDays = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() + 6
+    );
+    const sd = date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    const ed = datePlusSevenDays.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    dates.push(sd + " - " + ed);
+  }
+  const contributionsChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: dates,
+      datasets: [
+        {
+          label: "Weekly Contributions",
+          data: contributions,
+          backgroundColor: color,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        subtitle: {
+          display: true,
+          text: "Weekly Contributions (Past Year)\n",
+        },
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            display: false
+          }
+        },
+        y: {
+          ticks: {
+            display: false,
+            beginAtZero: true
+          }
+        }
+      }
+    },
+  });
+  canvas.height = "200px";
+  userData.appendChild(canvas);
 });
 
 const repos = document.getElementById("repos");
