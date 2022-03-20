@@ -20,6 +20,7 @@
   "dependencies": {
     "@octokit/rest": "^18.12.0",
     "body-parser": "^1.19.2",
+    "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",

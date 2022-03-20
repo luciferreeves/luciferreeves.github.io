@@ -104,7 +104,8 @@
                             </div>
                             <div class="control-group">
                                 <div class="controls">
-                                    <button type="submit" class="btn btn-primary" id="publishPost">Create New Post</button>
+                                    <button type="submit" class="btn btn-primary" id="publishPost">Create New
+                                        Post</button>
                                 </div>
                             </div>
                         </div>
@@ -155,9 +156,10 @@
         });
         $(document).on('click', '#publishPost', () => {
             document.getElementById('error').classList.add('hidden');
-            const htmlRender = $('#renderPreview').html();
+            const content = $('#content').val();
             const title = $('#title').val();
             const publishDate = $('#publishDate').val();
+            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             const tags = $('#tags').val();
             if (title === '' || publishDate === '') {
                 document.getElementById('error').classList.remove('hidden');
@@ -168,7 +170,9 @@
                     title: title,
                     publishDate: publishDate,
                     tags: tags,
-                    content: htmlRender
+                    content: marked.parse(content),
+                    shortText: marked.parse(content.substring(0, 120) + "..."),
+                    slug: slug
                 };
                 $.ajax({
                     url: '/api/blog/new',

@@ -6,21 +6,18 @@ router.get("/posts", (req, res) => {
   const store = firebase.firestore();
   const posts = [];
   let query = store.collection("posts");
-
-  query
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((documentSnapshot) => {
-        posts.push(documentSnapshot.data());
-      });
-    })
-    .then(() => {
-      res.json(posts);
+  query = query.select("slug", "tags", "title", "shortText", "publishDate");
+  query.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      posts.push(doc.data());
     });
+  }).then(() => {
+    res.json(posts);
+  });
 });
 
 router.post("/new", (req, res) => {
-  const { title, content, tags, publishDate } = req.body;
+  const { title, content, tags, publishDate, shortText, slug } = req.body;
   const store = firebase.firestore();
   const id = store.collection("posts").doc().id;
   const post = {
@@ -29,6 +26,8 @@ router.post("/new", (req, res) => {
     content,
     tags: String(tags).split(",").length > 0 ? String(tags).split(",") : [],
     publishDate,
+    shortText,
+    slug,
   };
   let query = store.collection("posts");
   query
