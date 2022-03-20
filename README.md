@@ -24,14 +24,14 @@ npm run dev
 
 ## Frameworks and Technologies
 
-- [ExpressJS](https://expressjs.com/)
-- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
-- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [BOOTSTRA.386](http://kristopolous.github.io/BOOTSTRA.386/)
 - [JQuery](https://jquery.com/)
 - [NodeJS](https://nodejs.org/)
+- [ExpressJS](https://expressjs.com/)
 - [Firebase](https://firebase.google.com/)
-- [Git](https://git-scm.com/)
 - [KaTeX](https://katex.org/)
 - [HighlightJS](https://highlightjs.org/)
 - [Marked](https://marked.js.org/)
@@ -44,6 +44,7 @@ npm run dev
 - [Github GraphQL API](https://docs.github.com/en/graphql)
 - [nodemon](https://www.npmjs.com/package/nodemon)
 - [Chart.JS](https://www.chartjs.org/)
+- [Git](https://git-scm.com/)
 
 ## Fonts
 - [Fira Code](https://fonts.google.com/specimen/Fira+Code)
