@@ -1,10 +1,10 @@
 const firebase = require("../firebase");
 const fs = require("fs");
 const cheerio = require("cheerio");
-const marked = require("marked");
-const hljs = require("highlight.js");
 const express = require("express");
 const router = express.Router();
+const marked = require("marked");
+const hljs = require("highlight.js");
 
 router.get("/posts/:id", function (req, res) {
   const id = req.params.id;
@@ -27,16 +27,12 @@ router.get("/posts/:id", function (req, res) {
       // convert content from base64 to utf8
       const content = Buffer.from(post.content, "base64").toString("utf8");
       // Parse the markdown
-      const markdown = marked.parse(content);
-      const markdownWithHighlight = markdown.replace(
-        /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/g,
-        (match, p1, p2) => {
-          return `<pre><code class="hljs ${p1}">${
-            hljs.highlight(p1, p2).value
-          }</code></pre>`;
-        }
-      );
-      $("#content").html(markdownWithHighlight);
+      const parsed = marked.parse(content, {
+        highlight: function (code) {
+          return hljs.highlightAuto(code).value;
+        },
+      });
+      $("#content").html(parsed);
       $("#publishDate").text(post.publishDate);
       post.tags.forEach((tag) => {
         $("#tags").append(
