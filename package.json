@@ -26,6 +26,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "firebase-admin": "^10.0.2",
+    "highlight.js": "^11.5.0",
+    "marked": "^4.0.12",
     "node-fetch": "^3.2.3",
     "shelljs": "^0.8.5"
   },
