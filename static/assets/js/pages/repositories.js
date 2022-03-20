@@ -61,6 +61,12 @@ $.getJSON("api/user", function (data) {
   githubText.appendChild(githubContainer);
   ghParagraph.appendChild(githubText);
   userData.appendChild(ghParagraph);
+  const weeklyContributionsTitle = "Weekly Contributions (Past Year)";
+  const weeklyContributions = document.createElement("p");
+  weeklyContributions.style.color = "#000";
+  weeklyContributions.innerHTML = weeklyContributionsTitle;
+  weeklyContributions.style.textAlign = "center";
+  userData.appendChild(weeklyContributions);
   const contributions = data.contributions;
   const canvas = document.createElement("canvas");
   canvas.id = "contributionsChart";
@@ -111,10 +117,6 @@ $.getJSON("api/user", function (data) {
     },
     options: {
       plugins: {
-        subtitle: {
-          display: true,
-          text: "Weekly Contributions (Past Year)\n",
-        },
         legend: {
           display: false,
         },
