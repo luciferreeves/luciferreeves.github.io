@@ -13,7 +13,7 @@ img1.onload = function () {
   ctx.drawImage(img1, 0, 0);
 
   var pixelArr = ctx.getImageData(0, 0, w, h).data;
-  sample_size = 8;
+  sample_size = 3;
 
   for (let y = 0; y < h; y += sample_size) {
     for (let x = 0; x < w; x += sample_size) {
