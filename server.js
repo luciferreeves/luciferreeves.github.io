@@ -2,16 +2,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 // Import the routes
 const routes = require("./routes");
 
 // Create the server
 const app = express();
-var allowedOrigins = [
-  "http://localhost:3000",
-  "https://thatcomputerscientist.com",
-];
+
 app.use(function (req, res, next) {
   if (
     req.get("X-Forwarded-Proto") === "http" &&
@@ -32,18 +28,9 @@ app.use(
     extended: true,
   })
 );
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Block everything except the allowed origins
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
+
+app.use(cors());
+
 app.use("/static", express.static(__dirname + "/static"));
 app.use(express.static(__dirname + "/public"));
 app.engine("html", require("ejs").renderFile);
