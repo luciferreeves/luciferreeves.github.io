@@ -4,7 +4,6 @@ const cheerio = require("cheerio");
 const express = require("express");
 const router = express.Router();
 const marked = require("marked");
-const hljs = require("highlight.js");
 
 router.get("/posts/:id", function (req, res) {
   const id = req.params.id;
@@ -26,13 +25,25 @@ router.get("/posts/:id", function (req, res) {
       $("#title").text(post.title);
       // convert content from base64 to utf8
       const content = Buffer.from(post.content, "base64").toString("utf8");
-      // Parse the markdown
-      const parsed = marked.parse(content, {
-        highlight: function (code) {
-          return hljs.highlightAuto(code).value;
+      // Parse the markdown and highlight the code
+      const renderPreview = $("#content");
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        highlight: function(code, lang) {
+          const hljs = require('highlight.js');
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language }).value;
         },
+        langPrefix: 'hljs language-',
+        pedantic: false,
+        gfm: true,
+        breaks: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false,
       });
-      $("#content").html(parsed);
+      renderPreview.html(marked.parse(content));
       $("#publishDate").text(post.publishDate);
       post.tags.forEach((tag) => {
         $("#tags").append(
