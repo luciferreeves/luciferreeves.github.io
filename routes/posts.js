@@ -55,6 +55,11 @@ router.get("/posts/:id", function (req, res) {
       const autoRenderScript = `
         <script>
           document.addEventListener("DOMContentLoaded", function() {
+              const tables = document.getElementsByTagName("table");
+              for (let i = 0; i < tables.length; i++) {
+                tables[i].classList.add("table");
+                tables[i].classList.add("table-bordered");
+              }
               renderMathInElement(document.getElementById("content"), {
                 // customised options
                 // • auto-render specific keys, e.g.:
