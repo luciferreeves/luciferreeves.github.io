@@ -44,30 +44,6 @@
     <script src="/static/assets/js/bootstrap-386.js"></script>
     <script src="/static/assets/js/bootstrap-transition.js"></script>
     <script src="/static/assets/js/bootstrap-collapse.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: '/api/blog/posts',
-                type: 'GET',
-                success: (data) => {
-                    const posts = document.getElementById('posts');
-                    console.log(data);
-                    data.forEach((post, index) => {
-                        if(index == 0) {
-                            const heroUnit = document.getElementById('hero-unit');
-                            heroUnit.classList.remove('hidden');
-                            heroUnit.innerHTML = `<h3>${post.title}</h3>
-                            <p>${post.shortText}</p>
-                            <p><a class="btn btn-primary btn-large" href="/posts/${post.slug}">Continue Reading</a></p>`;
-                        }
-                    })
-                }, 
-                error: (err) => {
-                    console.log(err);
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
