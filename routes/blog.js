@@ -53,6 +53,26 @@ router.put("/update/:slug", (req, res) => {
     });
 });
 
+router.delete("/delete/:slug", (req, res) => {
+  const store = firebase.firestore();
+  let query = store.collection("posts");
+  query = query.where("slug", "==", req.params.slug);
+  query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        doc.ref.delete();
+      });
+    })
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      res.json({ success: false, err });
+    });
+});
+
+
 router.post("/new", (req, res) => {
   const { title, content, tags, publishDate, shortText, slug } = req.body;
   const store = firebase.firestore();

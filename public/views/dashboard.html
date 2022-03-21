@@ -91,6 +91,17 @@
                         const deleteButton = document.createElement('a');
                         deleteButton.className = 'btn btn-danger';
                         deleteButton.innerHTML = 'Delete Post';
+                        deleteButton.addEventListener('click', () => {
+                            if (confirm('Are you sure you want to delete this post?')) {
+                                $.ajax({
+                                    url: `/api/blog/delete/${post.slug}`,
+                                    type: 'DELETE',
+                                    success: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        });
                         const editButtonContainer = document.createElement('div');
                         editButtonContainer.className = 'btn-group';
                         editButtonContainer.appendChild(editButton);
