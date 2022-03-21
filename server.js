@@ -1,6 +1,5 @@
 // Import Express and CORS
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
 
 // Import the routes
@@ -41,8 +40,6 @@ app.use(function (req, res, next) {
 });
 // Set the port
 const port = process.env.PORT || 3000;
-// Set the middleware
-app.use(cors());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
