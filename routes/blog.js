@@ -60,6 +60,7 @@ router.put("/update/:slug", (req, res) => {
             content: post.content,
             tags: post.tags,
             publishDate: post.publishDate,
+            shortText: post.shortText,
           });
         });
       })

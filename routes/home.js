@@ -24,14 +24,24 @@ router.get("/", (req, res) => {
       var $ = cheerio.load(html);
       $("#posts").html("");
       posts.forEach((post, index) => {
-        if (index === 0) {
-            $('#hero-unit').removeClass('hidden');
-            $('#hero-unit').html(`
-                <h1>${post.title}</h1>
+        $("#posts").append(`
+            <div class="lead">
+                <h2>${post.title}</h2>
                 <p>${post.shortText}</p>
-                <p><a class="btn btn-primary btn-lg" href="/posts/${post.slug}">Read More</a></p>
-            `);
-        }
+                <p>Published On: ${new Date(post.publishDate).toLocaleString(
+                  undefined,
+                  {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }
+                )}</p>
+                <p><a class="btn btn-default" href="/posts/${
+                  post.slug
+                }">Read More</a></p>
+            </div>
+        `);
       });
       res.send($.html());
     });

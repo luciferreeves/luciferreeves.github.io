@@ -48,7 +48,7 @@ $(document).on("click", "#publishPost", () => {
       publishDate: publishDate,
       tags: tags,
       content: content,
-      shortText: marked.parse(content.substring(0, 120) + "..."),
+      shortText: marked.parse(content.substring(0, 200) + "..."),
       slug: slug,
     };
     if (window.location.href.includes(slug)) {
