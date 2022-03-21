@@ -1,19 +1,17 @@
 // Import Express and CORS
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Import the routes
 const routes = require("./routes");
 
 // Create the server
 const app = express();
-app.use(function (req, res, next) {
-  // Only allow http://localhost:3000 and https://thatcomputerscientist.com to access the API
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-  
-});
+var allowedOrigins = [
+  "http://localhost:3000",
+  "https://thatcomputerscientist.com",
+];
 app.use(function (req, res, next) {
   if (
     req.get("X-Forwarded-Proto") === "http" &&
@@ -32,6 +30,22 @@ app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
+  })
+);
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
   })
 );
 app.use("/static", express.static(__dirname + "/static"));
