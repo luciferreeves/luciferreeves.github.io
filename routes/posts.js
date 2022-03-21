@@ -6,7 +6,6 @@ const router = express.Router();
 const marked = require("marked");
 const hljs = require("highlight.js");
 
-
 router.get("/posts/:id", function (req, res) {
   const id = req.params.id;
   // get single document where slug === id

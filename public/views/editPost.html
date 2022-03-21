@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/base16/seti-ui.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="/static/assets/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
+        integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/static/images/favicon.png">
+    <title>Dashboard - Add New Post</title>
+    <style type="text/css">
+        input,
+        textarea {
+            width: 100%;
+        }
+
+        code,
+        pre {
+            font-family: 'Fira Code', monospace !important;
+            font-size: 14px;
+            background-color: #1c1c1c;
+            color: #D4D4D5;
+        }
+
+        pre {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse"></button>
+                <a class="brand" href="/">That Computer Scientist</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/repos">Repositories</a></li>
+                        <li class="active"><a href="/admin">Administration</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-375" style="margin-top: 3.75rem;">
+        <div class="container">
+            <div class="row">
+                <div class="span3 bs-docs-sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav affix-top">
+                        <li><a href="/admin/dashboard">All Posts</a></li>
+                        <li><a href="/admin/dashboard/new">Add Post</a></li>
+                        <li><a href="#">Manage Comments</a></li>
+                        <li><a href="#">Manage Users</a></li>
+                        <li><a id="logout">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="span9">
+                    <header class="page-header">
+                        <h1>Editing Post</h1>
+                    </header>
+                    <div class="span9" style="padding: 0; margin: 0;">
+                        <div id="createPost" class="form">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                                    style=" margin-left: 0;">
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Content</label>
+                                <textarea class="form-control" id="content" name="content" rows="10"
+                                    placeholder="Content"></textarea>
+                            </div>
+                            <div class="container">
+                                <h1 style="margin-left: 0; padding-left: 0; transform: translate(-20px, 0px);">Render
+                                    Preview</h1>
+                                <div class="span9" id="renderPreview"
+                                    style="padding: 10px 0px; margin: 20px 0px 20px -20px"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tags">Tags</label>
+                                <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags"
+                                    style=" margin-left: 0;">
+                            </div>
+                            <div class="form-group">
+                                <label for="publishDate">Publish Date</label>
+                                <input type="date" class="form-control" id="publishDate" name="publishDate"
+                                    placeholder="Publish Date" style=" margin-left: 0;">
+                            </div>
+                            <div id="error" class="alert alert-error hidden">
+                                <strong>Error!</strong> Please fill out all fields.
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-primary" id="publishPost">Update
+                                        Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script src="/static/assets/js/jquery.js"></script>
+    <script src="/static/assets/js/bootstrap-transition.js"></script>
+    <script src="/static/assets/js/bootstrap-collapse.js"></script>
+    <script src="/static/assets/js/pages/config.js"></script>
+    <script src="/static/assets/js/pages/authCheck.js"></script>
+    <script src="/static/assets/js/marked.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+        integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+    <script>
+       
+    </script>
+</body>
+
+</html>

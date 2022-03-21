@@ -13,15 +13,14 @@ const home = require("./home");
 router.use("/admin", admin);
 router.use("/api/blog", blog);
 router.use("/", repositories);
-router.use("/", posts);
 router.use("/", home);
+router.use("/", posts);
 
 // Create the routes
 
 router.get("/about", (req, res) => {
   res.render("about.html");
 });
-
 
 // Export the routes
 module.exports = router;

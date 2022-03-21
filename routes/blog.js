@@ -7,13 +7,50 @@ router.get("/posts", (req, res) => {
   const posts = [];
   let query = store.collection("posts");
   query = query.select("slug", "tags", "title", "shortText", "publishDate");
-  query.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      posts.push(doc.data());
+  query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        posts.push(doc.data());
+      });
+    })
+    .then(() => {
+      res.json(posts);
     });
-  }).then(() => {
-    res.json(posts);
-  });
+});
+
+router.put("/update/:slug", (req, res) => {
+  const store = firebase.firestore();
+  const { title, content, tags, publishDate, shortText, slug } = req.body;
+  const base64 = Buffer.from(content).toString("base64");
+  const post = {
+    title,
+    content: base64,
+    tags: String(tags).split(",").length > 0 ? String(tags).split(",") : [],
+    publishDate,
+    shortText,
+    slug,
+  };
+  let query = store.collection("posts");
+  query = query.where("slug", "==", slug);
+  query
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        doc.ref.update({
+          title: post.title,
+          content: post.content,
+          tags: post.tags,
+          publishDate: post.publishDate,
+        });
+      });
+    })
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      res.json({ success: false, err });
+    });
 });
 
 router.post("/new", (req, res) => {

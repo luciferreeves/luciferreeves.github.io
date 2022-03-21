@@ -18,13 +18,13 @@
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse"
                     data-target=".nav-collapse"></button>
-                <a class="brand" href="../">That Computer Scientist</a>
+                <a class="brand" href="/">That Computer Scientist</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li><a href="../">Home</a></li>
-                        <li><a href="../about">About</a></li>
-                        <li><a href="../repos">Repositories</a></li>
-                        <li class="active"><a href="./">Administration</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/repos">Repositories</a></li>
+                        <li class="active"><a href="/admin">Administration</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="span3 bs-docs-sidebar">
                     <ul class="nav nav-list bs-docs-sidenav affix-top">
-                        <li class="active"><a href="../admin/dashboard">All Posts</a></li>
+                        <li class="active"><a href="/admin/dashboard">All Posts</a></li>
                         <li><a href="/admin/dashboard/new">Add Post</a></li>
                         <li><a href="#">Manage Comments</a></li>
                         <li><a href="#">Manage Users</a></li>
@@ -87,6 +87,7 @@
                         editButton.className = 'btn btn-primary';
                         editButton.innerHTML = 'Edit Post';
                         editButton.style.marginRight = '15px';
+                        editButton.href = `/admin/dashboard/edit/${post.slug}`;
                         const deleteButton = document.createElement('a');
                         deleteButton.className = 'btn btn-danger';
                         deleteButton.innerHTML = 'Delete Post';
@@ -101,7 +102,7 @@
                         leadParagraphCotainer.appendChild(editButtonContainer);
                         posts.appendChild(leadParagraphCotainer);
                     })
-                }, 
+                },
                 error: (err) => {
                     console.log(err);
                 }
