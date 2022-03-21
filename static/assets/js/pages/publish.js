@@ -8,6 +8,12 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   content.addEventListener("input", () => {
     renderPreview.innerHTML = marked.parse(content.value);
+    // Find all tables and add class to them
+    const tables = document.getElementsByTagName("table");
+    for (let i = 0; i < tables.length; i++) {
+      tables[i].classList.add("table");
+      tables[i].classList.add("table-bordered");
+    }
     renderMathInElement(renderPreview, {
       // customised options
       // • auto-render specific keys, e.g.:
