@@ -9,6 +9,25 @@ const routes = require("./routes");
 // Create the server
 const app = express();
 app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000", "https://thatcomputerscientist.com");
+
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Pass to next layer of middleware
+  next();
+});
+app.use(function (req, res, next) {
   if (
     req.get("X-Forwarded-Proto") === "http" &&
     !["localhost", "127.0.0.1"].includes(
@@ -36,7 +55,6 @@ app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 app.set("views", __dirname + "/public/views");
 app.use(routes);
-
 
 // Start the server
 app.listen(port, () => {
