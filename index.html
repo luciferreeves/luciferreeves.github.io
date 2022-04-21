@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>That Computer Scientist</title>
+    <!-- Redirect to https://thatcomputerscientist.com -->
+    <meta http-equiv="refresh" content="0; url=https://thatcomputerscientist.com">
+    <style>
+        .boxed {
+            border: 1px solid black;
+            padding: 10px;
+            width: 50%;
+            text-align: center;
+        }
+
+        .center {
+            /* Center the div */
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .btn {
+            background-color: #143ca0;
+            border: none;
+            color: white;
+            padding: 1px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .loader {
+            margin: 0 0 2em;
+            height: 100px;
+            width: 20%;
+            text-align: center;
+            padding: 1em;
+            margin: 0 auto -5em;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        /*
+  Set the color of the icon
+*/
+        svg path,
+        svg rect {
+            fill: #143ca0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Setup a redirection message to https://thatcomputerscientist.com -->
+
+    <div class="center boxed">
+        <!-- Loading SVG -->
+        <div class="loader loader--style5" title="4">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <rect x="0" y="0" width="4" height="10" fill="#333">
+                    <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0" begin="0" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+                <rect x="10" y="0" width="4" height="10" fill="#333">
+                    <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0" begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+                <rect x="20" y="0" width="4" height="10" fill="#333">
+                    <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                        values="0 0; 0 20; 0 0" begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+                </rect>
+            </svg>
+        </div>
+
+        <h1>That Computer Scientist</h1>
+        <p>Please wait while we auto-redirect to <a
+                href="https://thatcomputerscientist.com">https://thatcomputerscientist.com</a>. If that does not happen
+            automatically, click the button below to redirect.</p>
+        <a href="https://thatcomputerscientist.com" class="btn">Redirect</a>
+    </div>
+</body>
+
+</html>
